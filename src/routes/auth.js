@@ -4,7 +4,6 @@ const Auth = require('../models/Auth')
 const jwt = require('jsonwebtoken')
 const auth = require('../middleware/auth')
 const bcrypt = require('bcrypt')
-const redis = require('redis').createClient()
 
 router.post('/signup', (req, res, next) => {
     try {

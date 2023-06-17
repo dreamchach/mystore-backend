@@ -5,6 +5,8 @@ const mongoose = require('mongoose')
 const env = require('dotenv')
 const path = require('path')
 const auth = require('./routes/auth')
+const products = require('./routes/products')
+const cors = require('cors')
 
 env.config()
 
@@ -16,8 +18,10 @@ try {
 }
 
 app.use(express.json())
+app.use(cors())
 
 app.use('/api/auth', auth)
+app.use('/api/products', products)
 
 app.use('/image', express.static(path.join(__dirname, '../upload')))
 app.use((error, res) => {
