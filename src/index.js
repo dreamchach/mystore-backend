@@ -24,9 +24,19 @@ app.use('/api/auth', auth)
 app.use('/api/products', products)
 
 app.use('/image', express.static(path.join(__dirname, '../upload')))
+/*
 app.use((error, res) => {
     res.status(error.status || 500)
     res.send(error.message || '서버에서 에러가 났습니다')
+})
+*/
+
+app.get('/', async (req, res, next) => {
+    try {
+        return res.status(200).send('hello')
+    } catch (error) {
+        next(error)
+    }
 })
 
 app.listen(port, () => {
