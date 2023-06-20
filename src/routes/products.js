@@ -97,9 +97,7 @@ router.delete('/:productId', auth, async(req, res, next) => {
 // 제품 검색
 router.post('/search', async(req, res, next) => {
     try {
-        const products = req.body.searchText ? 
-            await Products.find({title : req.body.searchText}) :
-            await Products.find({tag : req.body.searchTag})
+        const products = await Products.find({tag : req.body.searchTag})
         
         return res.status(200).json({products})
     } catch (error) {
@@ -275,7 +273,7 @@ router.post('/transactions/detail', auth, async (req, res, next) => {
     }
 })
 
-// 전체 거래(판매) 내역(관리자)
+// 전체 거래(판매) 내역
 router.get('/transactions/all', auth, async (req, res, next) => {
     try {
         if(!req.headers['masterkey']) {

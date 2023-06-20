@@ -80,16 +80,44 @@ router.put('/user', auth, async(req, res, next) => {
         const match = await user.comparePassword(req.body.oldPassword)
 
         if(match) {
-            const salt = await bcrypt.genSalt(10)
-            const hash = await bcrypt.hash(req.body.newPassword, salt)
+            if(req.body.newPassword && req.body.profileImgBase64) {
+                const salt = await bcrypt.genSalt(10)
+                const hash = await bcrypt.hash(req.body.newPassword, salt)
+    
+                await Auth.findOneAndUpdate(
+                    {_id : decode.userId},
+                    {$set: {password : hash}},
+                    {new : true}
+                )
 
-            await Auth.findOneAndUpdate(
-                {_id : decode.userId},
-                {$set: {password : hash}},
-                {new : true}
-            )
+                await Auth.findOneAndUpdate(
+                    {_id : decode.userId},
+                    {profileImgBase64 : req.body.profileImgBase64},
+                    {new : true}
+                )
+    
+                return res.status(200).send('개인정보가 성공적으로 변경되었습니다')
+            }else if(req.body.newPassword) {
+                const salt = await bcrypt.genSalt(10)
+                const hash = await bcrypt.hash(req.body.newPassword, salt)
+    
+                await Auth.findOneAndUpdate(
+                    {_id : decode.userId},
+                    {$set: {password : hash}},
+                    {new : true}
+                )
 
-            return res.status(200).send('비밀번호가 성공적으로 변경되었습니다')
+                return res.status(200).send('개인정보가 성공적으로 변경되었습니다')
+            }else {
+                await Auth.findOneAndUpdate(
+                    {_id : decode.userId},
+                    {profileImgBase64 : req.body.profileImgBase64},
+                    {new : true}
+                )
+    
+                return res.status(200).send('개인정보가 성공적으로 변경되었습니다')
+            }
+
         }else {
             return res.status(400).send('비밀번호가 일치하지 않습니다')
         }
