@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const authSchema = mongoose.Schema({
+const paymentsSchema = mongoose.Schema({
     detailId : {
         type : String
     }, 
@@ -13,6 +13,9 @@ const authSchema = mongoose.Schema({
     timePaid : {
         type : String
     },
+    number : {
+        type : Number
+    },
     isCanceled : {
         type : Boolean,
         default : false
@@ -23,6 +26,6 @@ const authSchema = mongoose.Schema({
     }
 })
 
-const Auth = mongoose.model('Auth', authSchema)
+const Payments = mongoose.model('Payments', paymentsSchema)
 
-module.exports = Auth
+module.exports = Payments

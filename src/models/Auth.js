@@ -20,6 +20,14 @@ const authSchema = mongoose.Schema({
         maxLength : 20
     },
     profileImgBase64 : String,
+    cart : {
+        type : Array,
+        default : []
+    },
+    history : {
+        type : Array,
+        default : []
+    }
 })
 
 authSchema.pre('save', async function(next) {
