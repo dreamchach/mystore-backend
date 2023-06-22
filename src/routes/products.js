@@ -48,13 +48,9 @@ router.post('/', auth, async (req, res, next) => {
 
 router.get('/', auth, async (req, res, next) => {
     try {
-        if(!req.headers['masterkey']) {
-            return res.status(500).send('관리자 계정이 아닙니다')
-        }else {
             const products = await Products.find().populate()
             
             return res.status(200).json({products})
-        }
     } catch (error) {
         next(error)
     }
