@@ -46,11 +46,11 @@ router.post('/', auth, async (req, res, next) => {
     }
 })
 
-router.get('/', auth, async (req, res, next) => {
+router.get('/', async (req, res, next) => {
     try {
-            const products = await Products.find().populate()
+        const products = await Products.find().populate()
             
-            return res.status(200).json({products})
+        return res.status(200).json({products})
     } catch (error) {
         next(error)
     }
