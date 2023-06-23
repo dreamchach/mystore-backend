@@ -156,8 +156,6 @@ curl https://port-0-mystore-backend-koh2xlj3ufoqd.sel4.cloudtype.app/api/product
 ```
 curl https://port-0-mystore-backend-koh2xlj3ufoqd.sel4.cloudtype.app/api/products
   \ -X 'GET'
-  \ -H 'authorization : bearer <accessToken>'
-  \ -H 'masterkey : true'
 ```
 
 ### 3. 제품 수정 (관리자)
