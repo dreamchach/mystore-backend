@@ -90,24 +90,24 @@ router.put('/user', auth, async(req, res, next) => {
                     {new : true}
                 )
 
-                await Auth.findOneAndUpdate(
+                const user = await Auth.findOneAndUpdate(
                     {_id : decode.userId},
                     {profileImgBase64 : req.body.profileImgBase64},
                     {new : true}
                 )
     
-                return res.status(200).send('개인정보가 성공적으로 변경되었습니다')
+                return res.status(200).json({user})
             }else if(req.body.newPassword) {
                 const salt = await bcrypt.genSalt(10)
                 const hash = await bcrypt.hash(req.body.newPassword, salt)
     
-                await Auth.findOneAndUpdate(
+                const user = await Auth.findOneAndUpdate(
                     {_id : decode.userId},
                     {$set: {password : hash}},
                     {new : true}
                 )
 
-                return res.status(200).send('개인정보가 성공적으로 변경되었습니다')
+                return res.status(200).json({user})
             }else {
                 const user = await Auth.findOneAndUpdate(
                     {_id : decode.userId},
