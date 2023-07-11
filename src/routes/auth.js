@@ -109,13 +109,13 @@ router.put('/user', auth, async(req, res, next) => {
 
                 return res.status(200).send('개인정보가 성공적으로 변경되었습니다')
             }else {
-                await Auth.findOneAndUpdate(
+                const user = await Auth.findOneAndUpdate(
                     {_id : decode.userId},
                     {profileImgBase64 : req.body.profileImgBase64},
                     {new : true}
                 )
     
-                return res.status(200).send('개인정보가 성공적으로 변경되었습니다')
+                return res.status(200).json({user})
             }
 
         }else {
